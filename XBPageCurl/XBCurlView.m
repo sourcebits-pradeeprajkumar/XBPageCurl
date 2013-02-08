@@ -259,7 +259,11 @@ void ImageProviderReleaseData(void *info, const void *data, size_t size);
     NSValue *selfValue = [NSValue valueWithNonretainedObject:self];
     XBAnimation *animation = [XBAnimation animationWithName:kCylinderDirectionAnimationName duration:duration update:^(double t) {
         XBCurlView *weakSelf = selfValue.nonretainedObjectValue;
-        weakSelf->_cylinderAngle = (1 - t)*a0 + t*a1;
+    	if(((1 - t)*a0 + t*a1) < 1.5)
+		{
+			weakSelf->_cylinderAngle = (1 - t)*a0 + t*a1;
+		}
+
     } completion:completion interpolator:interpolator];
     
     [self.animationManager runAnimation:animation];
